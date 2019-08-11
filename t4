@@ -1,0 +1,172 @@
+  Procedure: func1_
+  Intermediate Code Statements
+	iLoad:    	v0 <- 5
+	store:    	i2_ <- v0
+	iLoad.d:    	f2 <- 5.00
+	store.d:    	f2_ <- f2
+  Procedure: func2_
+  Intermediate Code Statements
+	load:    	v0 <- a_
+	iLoad:    	t0 <- 10
+	add:    	t1 <- v0 , t0
+	store:    	a_ <- t1
+	iLoad:    	v0 <- 5
+	store:    	i1_ <- v0
+  Procedure: func3_
+  Intermediate Code Statements
+	load.d:    	f2 <- b_
+	load.d:    	f4 <- f2_
+	add.d:    	f6 <- f2 , f4
+	store.d:    	b_ <- f6
+	load.d:    	f2 <- c_
+	iLoad.d:    	f4 <- 10.50
+	add.d:    	f6 <- f2 , f4
+	store.d:    	c_ <- f6
+  Procedure: func4_
+  Intermediate Code Statements
+	iLoad:    	v0 <- 4
+	store:    	i1_ <- v0
+	load:    	v0 <- i1_
+	move:    	v1 <- v0
+	return
+  Procedure: main
+  Intermediate Code Statements
+
+	.data
+i1_:	.word 0
+i2_:	.word 0
+f1_:	.double 0.0
+f2_:	.double 0.0
+
+	.text 			# The .text assembler directive indicates
+	.globl func1_		# The following is the code (as oppose to data)
+func1_:				# .globl makes main know to the 
+				# outside of the program.
+# Prologue begins 
+	sw $ra, 0($sp)		# Save the return address
+	sw $fp, -4($sp)		# Save the frame pointer
+	sub $fp, $sp, 8		# Update the frame pointer
+
+	sub $sp, $sp, 8		# Make space for the locals
+# Prologue ends
+
+	li $v0, 5
+	sw $v0, i2_
+	li.d $f2, 5.00
+	s.d $f2, f2_
+
+# Epilogue Begins
+epilogue_func1_:
+	add $sp, $sp, 8
+	lw $fp, -4($sp)  
+	lw $ra, 0($sp)   
+	jr        $31		# Jump back to the called procedure
+# Epilogue Ends
+
+
+	.text 			# The .text assembler directive indicates
+	.globl func2_		# The following is the code (as oppose to data)
+func2_:				# .globl makes main know to the 
+				# outside of the program.
+# Prologue begins 
+	sw $ra, 0($sp)		# Save the return address
+	sw $fp, -4($sp)		# Save the frame pointer
+	sub $fp, $sp, 8		# Update the frame pointer
+
+	sub $sp, $sp, 8		# Make space for the locals
+# Prologue ends
+
+	lw $v0, 12($fp)
+	li $t0, 10
+	add $t1, $v0, $t0
+	sw $t1, 12($fp)
+	li $v0, 5
+	sw $v0, 24($fp)
+
+# Epilogue Begins
+epilogue_func2_:
+	add $sp, $sp, 8
+	lw $fp, -4($sp)  
+	lw $ra, 0($sp)   
+	jr        $31		# Jump back to the called procedure
+# Epilogue Ends
+
+
+	.text 			# The .text assembler directive indicates
+	.globl func3_		# The following is the code (as oppose to data)
+func3_:				# .globl makes main know to the 
+				# outside of the program.
+# Prologue begins 
+	sw $ra, 0($sp)		# Save the return address
+	sw $fp, -4($sp)		# Save the frame pointer
+	sub $fp, $sp, 8		# Update the frame pointer
+
+	sub $sp, $sp, 8		# Make space for the locals
+# Prologue ends
+
+	l.d $f2, 20($fp)
+	l.d $f4, f2_
+	add.d $f6, $f2, $f4
+	s.d $f6, 20($fp)
+	l.d $f2, 28($fp)
+	li.d $f4, 10.50
+	add.d $f6, $f2, $f4
+	s.d $f6, 28($fp)
+
+# Epilogue Begins
+epilogue_func3_:
+	add $sp, $sp, 8
+	lw $fp, -4($sp)  
+	lw $ra, 0($sp)   
+	jr        $31		# Jump back to the called procedure
+# Epilogue Ends
+
+
+	.text 			# The .text assembler directive indicates
+	.globl func4_		# The following is the code (as oppose to data)
+func4_:				# .globl makes main know to the 
+				# outside of the program.
+# Prologue begins 
+	sw $ra, 0($sp)		# Save the return address
+	sw $fp, -4($sp)		# Save the frame pointer
+	sub $fp, $sp, 8		# Update the frame pointer
+
+	sub $sp, $sp, 8		# Make space for the locals
+# Prologue ends
+
+	li $v0, 4
+	sw $v0, i1_
+	lw $v0, i1_
+	move $v1, $v0
+	j epilogue_func4_
+
+# Epilogue Begins
+epilogue_func4_:
+	add $sp, $sp, 8
+	lw $fp, -4($sp)  
+	lw $ra, 0($sp)   
+	jr        $31		# Jump back to the called procedure
+# Epilogue Ends
+
+
+	.text 			# The .text assembler directive indicates
+	.globl main		# The following is the code (as oppose to data)
+main:				# .globl makes main know to the 
+				# outside of the program.
+# Prologue begins 
+	sw $ra, 0($sp)		# Save the return address
+	sw $fp, -4($sp)		# Save the frame pointer
+	sub $fp, $sp, 8		# Update the frame pointer
+
+	sub $sp, $sp, 8		# Make space for the locals
+# Prologue ends
+
+
+# Epilogue Begins
+epilogue_main:
+	add $sp, $sp, 8
+	lw $fp, -4($sp)  
+	lw $ra, 0($sp)   
+	jr        $31		# Jump back to the called procedure
+# Epilogue Ends
+
